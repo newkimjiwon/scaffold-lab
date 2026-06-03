@@ -32,7 +32,8 @@ scaffold-lab/
 │   ├── 03-ai-workflow.md
 │   ├── 04-progress-log.md
 │   ├── 05-reference-links.md
-│   └── 06-study-notes.md
+│   ├── 06-study-notes.md
+│   └── 07-command-cheatsheet.md
 └── src/
     └── EfCoreScaffoldLab/
 ```
@@ -43,6 +44,7 @@ scaffold-lab/
 - 문서는 `docs/` 아래에서 숫자 순서대로 읽히도록 유지합니다.
 - 공식 문서 링크는 `docs/05-reference-links.md`에 누적 관리합니다.
 - 대화 중 정리한 학습 개념은 `docs/06-study-notes.md`에 누적 관리합니다.
+- 실제로 사용한 명령어는 `docs/07-command-cheatsheet.md`에 누적 관리합니다.
 - 큰 작업을 할 때는 먼저 문서를 갱신하고, 그 다음 코드 변경을 진행합니다.
 - 실습 결과 비교가 필요하면 출력 폴더를 분리합니다.
 

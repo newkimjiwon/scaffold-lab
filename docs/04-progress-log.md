@@ -20,6 +20,7 @@
 - `export DOTNET_CLI_HOME=../../.dotnet_cli_home`와 `export PATH=../../.dotnet:$PATH` 방식으로 세션 환경설정을 확인했다.
 - `SampleContext` 기준 첫 마이그레이션 `InitialScaffoldedSchema`를 `Migrations` 폴더에 생성했다.
 - 지금까지의 대화 내용을 학습 노트 문서로 정리했다.
+- 지금까지 실제로 사용한 명령어를 치트시트 문서로 정리했다.
 
 ### Notes
 
@@ -33,6 +34,7 @@
 - 마이그레이션 생성 시 컨텍스트가 여러 개여서 `--context EfCoreScaffoldLab.Models.SampleContext` 지정이 필요했다.
 - `PhoneNumber` 추가 이후 첫 마이그레이션을 생성했기 때문에, 결과는 컬럼 추가 전용 델타가 아니라 현재 전체 모델 기준선이다.
 - `sample.db`는 DB 우선 실습용, `migration-demo.db`는 마이그레이션 실습용으로 구분해서 이해하면 덜 헷갈린다.
+- 반복해서 쓰는 명령은 별도 치트시트로 빼 두는 편이 학습 흐름 유지에 도움이 된다.
 
 ### Next
 
@@ -41,3 +43,4 @@
 - DBeaver에서 스키마를 바꾼 뒤 재스캐폴딩하면서 변화 관찰
 - 다음 실험에서는 DB 변경 전과 후에 각각 마이그레이션을 만들어 차이를 비교
 - 학습 노트 문서를 보면서 스캐폴딩과 마이그레이션 차이를 자기 말로 다시 설명해보기
+- 명령어 치트시트를 보지 않고 스스로 한 번 실행 순서를 재현해보기
