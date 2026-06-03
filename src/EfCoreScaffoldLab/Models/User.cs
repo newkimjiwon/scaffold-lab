@@ -13,5 +13,7 @@ public partial class User
 
     public DateOnly CreatedAt { get; set; }
 
+    public string? PhoneNumber { get; set; }
+
     public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
 }

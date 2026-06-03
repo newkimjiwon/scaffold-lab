@@ -17,10 +17,12 @@
 - 기본 스캐폴딩과 옵션별 스캐폴딩 결과를 `Models` 아래에 생성했다.
 - 샘플 데이터를 읽어보는 `Program.cs` 실행 코드를 작성했다.
 - `dotnet run`으로 샘플 사용자 2명과 게시글 관계가 정상 조회되는 것을 확인했다.
+- `export DOTNET_CLI_HOME=../../.dotnet_cli_home`와 `export PATH=../../.dotnet:$PATH` 방식으로 세션 환경설정을 확인했다.
 
 ### Notes
 
 - 시스템 전역 `dotnet`은 없었고, 대신 프로젝트 안의 로컬 SDK로 작업했다.
+- `src/EfCoreScaffoldLab` 폴더 안에서는 `export` 두 줄만 먼저 실행하면 이후 명령을 짧게 사용할 수 있다.
 - `sample.db` 기준 기본 컨텍스트 이름은 `SampleContext`로 생성되었다.
 - `--data-annotations` 결과는 `Models/Annotations`에 생성되었다.
 - `--use-database-names` 결과는 `Models/RawNames`에 생성되었고 컨텍스트 이름이 `sampleContext`로 유지되었다.

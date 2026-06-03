@@ -29,6 +29,40 @@ bash .dotnet-install.sh --channel 10.0 --install-dir ./.dotnet
 ./.dotnet/dotnet --info
 ```
 
+## 0.5. Recommended: Session Environment Setup
+
+로컬 SDK 방식을 계속 사용할 때는 매번 명령 앞에 긴 경로를 붙이는 대신, 현재 터미널 세션에 환경변수를 먼저 설정하는 편이 훨씬 편합니다.
+
+`src/EfCoreScaffoldLab` 폴더 안에 들어와 있다면 아래 두 줄을 먼저 실행합니다.
+
+```bash
+export DOTNET_CLI_HOME=../../.dotnet_cli_home
+export PATH=../../.dotnet:$PATH
+```
+
+정상 적용 확인:
+
+```bash
+dotnet --version
+```
+
+예상 결과:
+
+```text
+10.0.300
+```
+
+이 설정은 현재 터미널 세션에서만 유지됩니다.  
+터미널을 새로 열면 다시 실행해야 합니다.
+
+이후에는 아래처럼 짧은 명령으로 진행할 수 있습니다.
+
+```bash
+dotnet tool restore
+dotnet tool run dotnet-ef --version
+dotnet run
+```
+
 ## 1. Project Create
 
 전역 `dotnet`이 있으면 그대로 실행합니다.
@@ -63,6 +97,15 @@ DOTNET_CLI_HOME=$PWD/../../.dotnet_cli_home ../../.dotnet/dotnet add package Mic
 DOTNET_CLI_HOME=$PWD/../../.dotnet_cli_home ../../.dotnet/dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 DOTNET_CLI_HOME=$PWD/../../.dotnet_cli_home ../../.dotnet/dotnet new tool-manifest
 DOTNET_CLI_HOME=$PWD/../../.dotnet_cli_home ../../.dotnet/dotnet tool install dotnet-ef
+```
+
+이미 `export DOTNET_CLI_HOME=../../.dotnet_cli_home`와 `export PATH=../../.dotnet:$PATH`를 적용했다면 아래처럼 더 짧게 실행할 수 있습니다.
+
+```bash
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+dotnet new tool-manifest
+dotnet tool install dotnet-ef
 ```
 
 이미 `dotnet-ef`가 설치되어 있다면 마지막 명령은 실패할 수 있습니다.  
@@ -159,6 +202,12 @@ dotnet ef dbcontext scaffold "Data Source=sample.db" Microsoft.EntityFrameworkCo
 ../../.dotnet/dotnet tool run dotnet-ef dbcontext scaffold "Data Source=sample.db" Microsoft.EntityFrameworkCore.Sqlite --output-dir Models
 ```
 
+세션 환경변수를 이미 설정했다면 아래처럼 실행합니다.
+
+```bash
+dotnet tool run dotnet-ef dbcontext scaffold "Data Source=sample.db" Microsoft.EntityFrameworkCore.Sqlite --output-dir Models
+```
+
 ## 5. Variation A: Data Annotations
 
 ```bash
@@ -210,3 +259,17 @@ rm -rf Models
 - 다음 실험 아이디어
 
 공식 근거가 필요하면 [docs/05-reference-links.md](/Users/newkimjiwon/project/scaffold-lab/docs/05-reference-links.md)를 함께 확인합니다.
+
+## 11. Quick Start In This Project
+
+지금 저장소에서 가장 자주 쓰게 되는 실제 시작 순서입니다.
+
+```bash
+cd /Users/newkimjiwon/project/scaffold-lab/src/EfCoreScaffoldLab
+export DOTNET_CLI_HOME=../../.dotnet_cli_home
+export PATH=../../.dotnet:$PATH
+dotnet --version
+dotnet tool restore
+dotnet tool run dotnet-ef dbcontext scaffold "Data Source=sample.db" Microsoft.EntityFrameworkCore.Sqlite --output-dir Models --force
+dotnet run
+```
