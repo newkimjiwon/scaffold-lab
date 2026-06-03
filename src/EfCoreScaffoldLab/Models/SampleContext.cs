@@ -15,6 +15,8 @@ public partial class SampleContext : DbContext
     {
     }
 
+    public virtual DbSet<EfmigrationsLock> EfmigrationsLocks { get; set; }
+
     public virtual DbSet<Post> Posts { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -25,6 +27,13 @@ public partial class SampleContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<EfmigrationsLock>(entity =>
+        {
+            entity.ToTable("__EFMigrationsLock");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+        });
+
         modelBuilder.Entity<Post>(entity =>
         {
             entity.HasOne(d => d.User).WithMany(p => p.Posts)
