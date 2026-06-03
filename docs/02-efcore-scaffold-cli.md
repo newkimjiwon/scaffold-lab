@@ -137,7 +137,8 @@ CREATE TABLE Users (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Email TEXT NOT NULL,
     DisplayName TEXT NOT NULL,
-    CreatedAt TEXT NOT NULL
+    CreatedAt TEXT NOT NULL,
+    PhoneNumber TEXT
 );
 
 CREATE TABLE Posts (
@@ -165,7 +166,8 @@ CREATE TABLE Users (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Email TEXT NOT NULL,
     DisplayName TEXT NOT NULL,
-    CreatedAt TEXT NOT NULL
+    CreatedAt TEXT NOT NULL,
+    PhoneNumber TEXT
 );
 
 CREATE TABLE Posts (
@@ -232,15 +234,49 @@ find Models -maxdepth 3 -type f | sort
 rg "class |DbSet|OnModelCreating|\\[Key\\]|\\[Required\\]" Models
 ```
 
-## 8. What To Observe
+## 8. First Migration
+
+스캐폴딩된 기본 컨텍스트를 기준으로 마이그레이션 파일도 생성할 수 있습니다.
+
+이 프로젝트는 비교용 컨텍스트가 여러 개 있어서 `--context`를 지정하는 편이 안전합니다.
+
+```bash
+dotnet tool restore
+dotnet tool run dotnet-ef migrations add InitialScaffoldedSchema --context EfCoreScaffoldLab.Models.SampleContext --output-dir Migrations
+```
+
+생성 결과:
+
+- `Migrations/{timestamp}_InitialScaffoldedSchema.cs`
+- `Migrations/{timestamp}_InitialScaffoldedSchema.Designer.cs`
+- `Migrations/SampleContextModelSnapshot.cs`
+
+주의:
+
+- 현재 DB를 먼저 바꾸고 나서 처음 마이그레이션을 만들면, 그 마이그레이션은 `PhoneNumber`만의 변경분이 아니라 현재 모델 전체를 기준으로 한 첫 기준선이 됩니다.
+- 즉 지금 예시에서는 `Users`, `Posts`, `PhoneNumber`가 모두 포함된 초기 마이그레이션이 생성됩니다.
+- 실제 변경분만 따로 보고 싶다면 DB 변경 전에 기준 마이그레이션을 먼저 만들어두는 흐름이 더 적합합니다.
+
+생성된 마이그레이션 코드 확인:
+
+```bash
+find Migrations -maxdepth 1 -type f | sort
+sed -n '1,240p' Migrations/*_InitialScaffoldedSchema.cs
+sed -n '1,240p' Migrations/SampleContextModelSnapshot.cs
+```
+
+
+## 9. What To Observe
 
 - `DbContext` 파일 이름과 위치
 - 엔터티 클래스 이름 변환 방식
 - `OnModelCreating` 내부 Fluent API 생성 여부
 - `[Key]`, `[Required]` 같은 특성 부여 여부
 - 외래 키와 탐색 속성 생성 형태
+- 마이그레이션의 `Up` 메서드가 어떤 SQL 동작을 표현하는지
+- `ModelSnapshot`이 현재 모델 기준선을 어떻게 저장하는지
 
-## 9. Common Cleanup
+## 10. Common Cleanup
 
 다시 실습할 때 생성물만 지우고 싶다면 아래 정도만 사용합니다.
 
@@ -248,7 +284,13 @@ rg "class |DbSet|OnModelCreating|\\[Key\\]|\\[Required\\]" Models
 rm -rf Models
 ```
 
-## 10. Log After Each Run
+마이그레이션만 다시 만들고 싶다면 아래도 참고합니다.
+
+```bash
+dotnet tool run dotnet-ef migrations remove --context EfCoreScaffoldLab.Models.SampleContext
+```
+
+## 11. Log After Each Run
 
 실습을 한 번 끝낼 때마다 아래 내용을 [docs/04-progress-log.md](/Users/newkimjiwon/project/scaffold-lab/docs/04-progress-log.md)에 남깁니다.
 
@@ -260,7 +302,7 @@ rm -rf Models
 
 공식 근거가 필요하면 [docs/05-reference-links.md](/Users/newkimjiwon/project/scaffold-lab/docs/05-reference-links.md)를 함께 확인합니다.
 
-## 11. Quick Start In This Project
+## 12. Quick Start In This Project
 
 지금 저장소에서 가장 자주 쓰게 되는 실제 시작 순서입니다.
 
@@ -271,5 +313,6 @@ export PATH=../../.dotnet:$PATH
 dotnet --version
 dotnet tool restore
 dotnet tool run dotnet-ef dbcontext scaffold "Data Source=sample.db" Microsoft.EntityFrameworkCore.Sqlite --output-dir Models --force
+dotnet tool run dotnet-ef migrations add InitialScaffoldedSchema --context EfCoreScaffoldLab.Models.SampleContext --output-dir Migrations
 dotnet run
 ```

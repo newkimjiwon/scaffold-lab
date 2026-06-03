@@ -2,7 +2,8 @@ CREATE TABLE Users (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Email TEXT NOT NULL,
     DisplayName TEXT NOT NULL,
-    CreatedAt TEXT NOT NULL
+    CreatedAt TEXT NOT NULL,
+    PhoneNumber TEXT
 );
 
 CREATE TABLE Posts (

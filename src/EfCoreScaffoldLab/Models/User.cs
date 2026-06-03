@@ -15,5 +15,7 @@ public partial class User
 
     public string? PhoneNumber { get; set; }
 
+    public string? Gender { get; set; }
+    
     public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
 }
