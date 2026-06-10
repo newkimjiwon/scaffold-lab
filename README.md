@@ -11,6 +11,7 @@ C#과 EF Core 스캐폴딩을 실습하고, 모든 작업 맥락을 AI와 함께
 - 공식 문서 링크 모음: [docs/05-reference-links.md](/Users/newkimjiwon/project/scaffold-lab/docs/05-reference-links.md)
 - 학습 개념 정리: [docs/06-study-notes.md](/Users/newkimjiwon/project/scaffold-lab/docs/06-study-notes.md)
 - 명령어 치트시트: [docs/07-command-cheatsheet.md](/Users/newkimjiwon/project/scaffold-lab/docs/07-command-cheatsheet.md)
+- 시니어 피드백 정리: [docs/08-senior-feedback-notes.md](/Users/newkimjiwon/project/scaffold-lab/docs/08-senior-feedback-notes.md)
 
 ## Goal
 
